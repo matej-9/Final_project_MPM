@@ -1,0 +1,26 @@
+{% extends 'homepage.html' %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block content %}
+<div>
+    <ul>
+        {% for product in products %}
+        <li>
+            <strong>{{ product.name }}</strong><br>
+            {{ product.desc }}<br>
+            <li>€{{ product.price }}</li>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:200px; height:auto;">
+            {% else %}
+                <em>No image available</em>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No products available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
