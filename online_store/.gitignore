@@ -1,0 +1,8 @@
+./.idea
+*.pyc
+secret_key.py
+/.env
+/db.sqlite3
+
+/accounts/migrations/
+
