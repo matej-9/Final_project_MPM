@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title></title>
     <link rel="stylesheet" href="{% static 'home_style.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
@@ -16,11 +17,11 @@
             <li><a href="{% url 'Product-list' %}">Products</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="{% url 'product_create' %}">Add Product</a></li>
+            <li><a href="{% url 'Product-list' %}">Remove Product</a></li>
             <li class="Profile"><a href="">Profile</a></li>
         </ul>
     </nav>
 
-    <h1>HomePage</h1>
 
     {% block content %}
     

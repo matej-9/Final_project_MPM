@@ -1,0 +1,33 @@
+{% extends 'homepage.html' %}
+{% load static %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buttons.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="styled">
+    <ul>
+        {% for product in products %}
+        <li>
+            <a href="{% url 'product' product.id %}">{{ product.name }}</a><br>
+            {{ product.desc }}<br>
+            <span>€{{ product.price }}</span><br>
+            <span>Quantity: {{ product.quantity }}</span><br>
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:200px; height:auto;">
+            {% else %}
+            <em>No image available</em>
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No products available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
