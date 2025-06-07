@@ -5,4 +5,6 @@ secret_key.py
 /db.sqlite3
 
 /accounts/migrations/
+/product/migrations/
+/cart/migrations/
 
