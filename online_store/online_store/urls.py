@@ -21,6 +21,8 @@ from django.urls import path, include
 from django.urls import path, include
 
 from accounts.views import SignUpView, user_logout, MyLoginView
+from cart.models import CartItem
+from cart.views import Cart
 
 from . import views
 from django.conf import settings
@@ -36,6 +38,8 @@ urlpatterns = [
     path('accounts/login/', MyLoginView.as_view(), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
+
+    path("cart/",Cart.as_view(), name='cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
