@@ -22,7 +22,7 @@ from django.urls import path, include
 
 from accounts.views import SignUpView, user_logout, MyLoginView
 from cart.models import CartItem
-from cart.views import Cart
+from cart.views import Cart, add_to_cart
 
 from . import views
 from django.conf import settings
@@ -40,6 +40,7 @@ urlpatterns = [
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
 
     path("cart/",Cart.as_view(), name='cart'),
+    path("cart/add_to_cart/", add_to_cart, name='add_to_cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
