@@ -11,19 +11,38 @@
 </head>
 
 <body>
-    <nav class = "navbar">
-        <ul>
-            <li><a href="/home/">Home</a></li>
-            <li><a href="{% url 'Product-list' %}">Products</a></li>
-            <li><a href="">Contact</a></li>
-            <li><a href="{% url 'product_create' %}">Add Product</a></li>
-            <li><a href="{% url 'Product-list' %}">Remove Product</a></li>
-            <li class="Profile"><a href="{% url "cart" %}">Cart</a></li>
-            <li class="Profile"><p id="SeparationLine">|</p></li>
-            <li class="Profile"><a href="">Profile</a></li>
-
+    <nav class="navbar">
+        <ul class="nav-left">
+            <li><a class="fancy-text" href="/home/">Home</a></li>
+            <div class="dropdown">
+                <a class="dropbtn" href="{% url 'Product-list' %}">Products</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <li><a class="fancy-text" href="">Contact</a></li>
+            {% if user.is_authenticated and user.is_superuser %}
+                <li><a class="fancy-text" href="{% url 'product_create' %}">Add Product</a></li>
+                <li><a class="fancy-text" href="{% url 'Product-list' %}">Remove Product</a></li>
+            {% endif %}
+        </ul>
+    
+        <div class="nav-center">
+            <form method="get" action="{% url 'Product-list' %}">
+                <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    
+        <ul class="nav-right">
+            <li><a class="fancy-text" href="{% url 'cart' %}">Cart</a></li>
+            <li><p id="SeparationLine">|</p></li>
+            <li><a class="fancy-text" href="">Profile</a></li>
         </ul>
     </nav>
+    
 
 
     {% block content %}

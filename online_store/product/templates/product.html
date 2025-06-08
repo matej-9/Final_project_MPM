@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'buttons.css' %}">
+<link rel="stylesheet" href="{% static 'product_detail.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,8 +25,12 @@
 </div>
 
 <div class="button-container">
-    <a href="{% url 'product_delete' product.id %}" class="btn-del" role="button">Delete</a>
-    <a href="{% url 'product_update' product.id %}" class="btn-back" role="button">Update</a>
-    <input type="button" value="Back" class="btn-back" onclick="history.back()">
+    {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'product_delete' product.id %}" class="btn-del" role="button">Delete</a>
+        <a href="{% url 'product_update' product.id %}" class="btn-back" role="button">Update</a>
+        <input type="button" value="Back" class="btn-back" onclick="history.back()">
+    {% else %}
+        <input type="button" value="Back" class="btn-back" onclick="history.back()">
+    {% endif %}
 </div>
 {% endblock %}
