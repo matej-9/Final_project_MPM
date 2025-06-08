@@ -6,7 +6,11 @@ Cart
 
 {% block content %}
 <div>
-
+<ul>
+{% for cart_item in cart %}
+	<li>{{ cart_item.product.name }}     {{ cart_item.quantity }}        {{ cart_item.product.price }}</li>
+{% endfor %}
+</ul>
 
 
 
