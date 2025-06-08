@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 
 class Products(ListView):
     model = Product
-    template_name = 'product.html'
+    template_name = 'products.html'
     context_object_name = 'products'
 
 class ProductCreate(CreateView):
