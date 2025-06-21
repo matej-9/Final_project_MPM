@@ -22,11 +22,13 @@ Cart
     {% endif %}
         <div class="details">
             <h3>{{ cart_item.product.name }} </h3>
-            <p>{{ cart_item.quantity }}</p>
+            <button onclick="updateQuantity({{ cart_item.id }},'minus')">-</button>
+            <p id="quantity-{{ cart_item.id }}">{{ cart_item.quantity }}</p>
+            <button onclick="updateQuantity({{ cart_item.id }},'plus')">+</button>
             <span class="price">{{ cart_item.product.price }} € / ks</span>
         </div>
-    <div class="finalprice">
-        <span >{{ cart_item.product.price}} €</span>
+     <div class="finalprice">
+        <span id="total-{{ cart_item.id }}">{{ cart_item.get_total_price }} €</span>
     </div>
     </li>
     <li>
@@ -34,8 +36,34 @@ Cart
     </li>
 {% endfor %}
 </ul>
-
-
-
 </div>
+    <script>
+function updateQuantity(itemId, action) {
+    // AJAX request
+    const formData = new FormData();
+    formData.append('item_id', itemId);
+    formData.append('action', action);
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+    fetch('{% url "update_cart" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.deleted) {
+            // hide item if deleted
+            document.getElementById('item-' + itemId).style.display = 'none';
+        } else {
+            // upadete quantity and price
+            document.getElementById('quantity-' + itemId).textContent = data.quantity;
+            document.getElementById('total-' + itemId).textContent = data.total + ' €';
+        }
+    })
+    .catch(error => {
+        alert('Chyba pri aktualizácii košíka!');
+        console.log(error);
+    });
+}
+    </script>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
@@ -23,7 +24,34 @@ def add_to_cart(request):
         else:
             CartItem.objects.create(product=Product.objects.get(id=product_id), quantity=1)
 
-
-
-
     return redirect("cart")
+
+
+def update_cart(request):
+    """AJAX + and -"""
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        action = request.POST.get('action')
+
+        cart_item = get_object_or_404(CartItem, id=item_id)
+
+        if action == 'plus':
+            if Product.objects.get(id=item_id).quantity > cart_item.quantity:
+                cart_item.quantity += 1
+                cart_item.save()
+
+        elif action == 'minus':
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                cart_item.save()
+            else:
+                cart_item.delete()
+                return JsonResponse({'deleted': True})
+
+        # New values
+        total_price = cart_item.quantity * cart_item.product.price
+
+        return JsonResponse({
+            'quantity': cart_item.quantity,
+            'total': total_price
+        })
