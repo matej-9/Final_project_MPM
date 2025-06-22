@@ -19,8 +19,9 @@ def add_to_cart(request):
     if Product.objects.filter(id=product_id).exists():
         if CartItem.objects.filter(product=Product.objects.get(id=product_id)).exists():
             cart_item = CartItem.objects.get(product=Product.objects.get(id=product_id))
-            cart_item.quantity += 1
-            cart_item.save()
+            if cart_item.product.quantity > cart_item.quantity:
+                cart_item.quantity += 1
+                cart_item.save()
         else:
             CartItem.objects.create(product=Product.objects.get(id=product_id), quantity=1)
 
