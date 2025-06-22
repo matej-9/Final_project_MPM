@@ -16,7 +16,22 @@
             <li><a href="{% url 'Product-list' %}">Products</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="{% url 'product_create' %}">Add Product</a></li>
-            <li class="Profile"><a href="">Profile</a></li>
+            {% if not user.is_authenticated %}
+        <li style="float: right;">
+            <a href="{% url 'accounts:signup' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Sign up</a>
+        </li>
+        <li style="float: right;">
+            <a href="{% url 'accounts:login' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Login</a>
+        </li>
+        {% else %}
+        <!-- Pre prihláseného používateľa -->
+        <li style="float: right;">
+            <a href="{% url 'accounts:profile' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Profil</a>
+        </li>
+        <li style="float: right;">
+            <a href="{% url 'accounts:logout' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Log out</a>
+        </li>
+            {% endif %}
         </ul>
     </nav>
 

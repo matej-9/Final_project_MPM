@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>
+        {% if view_name == 'SignUpView' %}
+            Registration
+        {% elif view_name == 'MyLoginView' %}
+            Login
+        {% else %}
+            Formulár
+        {% endif %}
+    </title>
+</head>
+<body>
+
+<nav>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! <a href="{% url 'accounts:logout' %}">Logout</a></p>
+    {% else %}
+        <a href="{% url 'accounts:login' %}">Login</a> | <a href="{% url 'accounts:signup' %}">Sign Up</a>
+    {% endif %}
+</nav>
+
+<h1>
+    {% if view_name == 'SignUpView' %}
+        Registration
+    {% elif view_name == 'MyLoginView' %}
+        Login
+    {% else %}
+        Formulár
+    {% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        {% if view_name == 'SignUpView' %} Sign up {% elif view_name == 'MyLoginView' %} Login {% else %} Send {% endif %}
+    </button>
+</form>
+
+{% if view_name == 'MyLoginView' %}
+    <p><a href="{% url 'accounts:password_reset' %}">Forgot your password?</a></p>
+{% endif %}
+
+</body>
+</html>

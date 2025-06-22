@@ -18,23 +18,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from django.urls import path, include
-
 from accounts.views import SignUpView, user_logout, MyLoginView
 
+
+
 from . import views
+
+
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("home/", views.home),
+    path('', views.home, name='home'),
     path("products/", include("product.urls")),
 
-    path('accounts/logout/', user_logout, name='logout'),
-    path('accounts/login/', MyLoginView.as_view(), name='login'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

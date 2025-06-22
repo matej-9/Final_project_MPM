@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    "django_dump_load_utf8",
+   # "django_dump_load_utf8",
 
     "accounts",
     "product",
@@ -127,7 +127,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    os.path.join (BASE_DIR/ 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type
@@ -137,3 +137,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/home/'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
