@@ -2,10 +2,11 @@ from django.db.models import Model, CharField, TextField, IntegerField, ImageFie
 
 class Product(Model):
     name = CharField(max_length=64, null=False, blank=False)
-    desc = TextField(max_length=256, null=True, blank=True)
+    desc = TextField(max_length=1024, null=True, blank=True)
     price = IntegerField(null=False, blank=False)
     quantity = IntegerField(null=True)
     image = ImageField(upload_to='images/', null=True, blank=True)
+
 
     class Meta:
         ordering = ['name']

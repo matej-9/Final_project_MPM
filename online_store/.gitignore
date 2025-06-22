@@ -3,6 +3,10 @@
 secret_key.py
 /.env
 /db.sqlite3
+db.sqlite3
+online_store/db.sqlite3
 
 /accounts/migrations/
+/product/migrations/
+/cart/migrations/
 

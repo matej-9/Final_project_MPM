@@ -1,0 +1,25 @@
+{% extends 'homepage.html' %}
+{% load static %}
+
+{% block title %}
+Delete Product
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buttons.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% if product.image %}
+            <h1><img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:200px; height:auto;"></h1>
+        {% else %}
+            <em>No image available</em>
+        {% endif %}
+        <p> Are you sure to delete "{{ product }}" from database?</p>
+        <input type="submit" value="Delete" class="btn-del">
+        <input type="button" value="Back" class="btn-back" onclick="history.back()">
+    </form>
+{% endblock %}
