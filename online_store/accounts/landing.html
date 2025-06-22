@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Login & Sign up</title>
+</head>
+<body>
+    <h1>Login & Sign up</h1>
+
+    <div style="float:left; width:45%; margin-right:5%;">
+        <h2>Sign up</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ signup_form.as_p }}
+            <button type="submit">Sign up</button>
+        </form>
+    </div>
+
+    <div style="float:left; width:45%;">
+        <h2>Login</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    <a href="{% url 'accounts:password_reset' %}">Forgot your password?</a>
+    </div>
+
+    <div style="clear: both;"></div>
+</body>
+</html>

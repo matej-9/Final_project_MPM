@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>My Shop</title>
     <link rel="stylesheet" href="{% static 'home_style.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -28,27 +28,32 @@
                 <li><a class="fancy-text" href="{% url 'Product-list' %}">Remove Product</a></li>
             {% endif %}
         </ul>
-    
+
         <div class="nav-center">
             <form method="get" action="{% url 'Product-list' %}">
                 <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
                 <button type="submit">Search</button>
             </form>
         </div>
-    
+
         <ul class="nav-right">
             <li><a class="fancy-text" href="{% url 'cart' %}">Cart</a></li>
             <li><p id="SeparationLine">|</p></li>
-            <li><a class="fancy-text" href="">Profile</a></li>
+
+            {% if user.is_authenticated %}
+                <!-- Zobrazí sa, ak je používateľ prihlásený -->
+                <li><a class="fancy-text" href="{% url 'accounts:profile' %}">Profile</a></li>
+                <li><a class="fancy-text" href="{% url 'accounts:logout' %}">Log out</a></li>
+            {% else %}
+                <!-- Zobrazí sa, ak používateľ NIE je prihlásený -->
+                <li><a class="fancy-text" href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a class="fancy-text" href="{% url 'accounts:signup' %}">Sign up</a></li>
+            {% endif %}
         </ul>
     </nav>
-    
-
 
     {% block content %}
-    
     {% endblock %}
 
 </body>
-
 </html>

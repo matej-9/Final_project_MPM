@@ -1,0 +1,20 @@
+{% extends 'homepage.html' %}
+
+{% block title %}{{ profile.user.username }}{% endblock %}
+
+{% block content %}
+    {% if profile %}
+        <h2>{{ profile.user.username }}</h2>
+        <ul>
+            <li>Meno: {{ profile.user.first_name }} {{ profile.user.last_name }}</li>
+            <li>E-mail: {{ profile.user.email }}</li>
+            <li>Telefón: {{ profile.phone_number }}</li>
+            <li>Krajina: {{ profile.country }}</li>
+            <li>Mesto: {{ profile.city }}</li>
+            <li>Ulica: {{ profile.street }}</li>
+            <li>PSČ: {{ profile.zip_code }}</li>
+        </ul>
+    {% else %}
+        <p>Profil nie je k dispozícii.</p>
+    {% endif %}
+{% endblock %}

@@ -18,8 +18,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from django.urls import path, include
-
 from accounts.views import SignUpView, user_logout, MyLoginView
 from cart.models import CartItem
 from cart.views import Cart, add_to_cart, update_cart
@@ -42,6 +40,9 @@ urlpatterns = [
     path("cart/",Cart.as_view(), name='cart'),
     path("cart/add_to_cart/", add_to_cart, name='add_to_cart'),
     path('cart/update-kosik/', update_cart, name='update_cart')
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -24,9 +24,10 @@ Products
             <em>No image available</em>
             {% endif %}
             <form method="POST" action="{% url 'add_to_cart' %}">
-                    {% csrf_token %}
+                {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <button type="submit">Pridať do košíka</button>
+            </form>
             </li>
         </li>
         {% empty %}
