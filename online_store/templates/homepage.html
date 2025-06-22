@@ -17,9 +17,9 @@
             <div class="dropdown">
                 <a class="dropbtn" href="{% url 'Product-list' %}">Products</a>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+                    {% for cat in categories %}
+                        <a href="{% url 'Product-list' %}?category={{ cat.name|urlencode }}">{{ cat.name }}</a>
+                    {% endfor %}
                 </div>
             </div>
             <li><a class="fancy-text" href="">Contact</a></li>

@@ -29,7 +29,7 @@ const CSRF_TOKEN = '{{ csrf_token }}';
             <button onclick="updateQuantity({{ cart_item.id }},'plus')">+</button>
             <span class="price">{{ cart_item.product.price }} € / ks</span>
         </div>
-     <div class="finalprice">
+    <div class="finalprice">
         <span id="total-{{ cart_item.id }}">{{ cart_item.get_total_price }} €</span>
     </div>
     </li>
