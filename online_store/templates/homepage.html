@@ -54,6 +54,8 @@
 
     {% block content %}
     {% endblock %}
-
+{% block extra_js %}
+<script src="{% static 'cart.js' %}"></script>
+{% endblock %}
 </body>
 </html>

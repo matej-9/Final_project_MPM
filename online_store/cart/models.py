@@ -13,3 +13,6 @@ class CartItem(models.Model):
         return f"{self.quantity}x {self.product.name}"
     def __repr__(self):
         return f"{self.quantity}x {self.product.name}"
+
+    def get_total_price(self):
+        return self.quantity * self.product.price
