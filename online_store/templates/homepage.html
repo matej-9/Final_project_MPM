@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" href="{% static 'home_style.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body>
@@ -49,12 +50,56 @@
                 <li><a class="fancy-text" href="{% url 'accounts:signup' %}">Sign up</a></li>
             {% endif %}
     <nav class = "navbar">
+    <nav class="navbar">
+        <ul class="nav-left">
+            <li><a class="fancy-text" href="/home/">Home</a></li>
+            <div class="dropdown">
+                <a class="dropbtn" href="{% url 'Product-list' %}">Products</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <li><a class="fancy-text" href="">Contact</a></li>
+            {% if user.is_authenticated and user.is_superuser %}
+                <li><a class="fancy-text" href="{% url 'product_create' %}">Add Product</a></li>
+                <li><a class="fancy-text" href="{% url 'Product-list' %}">Remove Product</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="nav-center">
+            <form method="get" action="{% url 'Product-list' %}">
+                <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <ul class="nav-right">
+            <li><a class="fancy-text" href="{% url 'cart' %}">Cart</a></li>
+            <li><p id="SeparationLine">|</p></li>
+            <li><a class="fancy-text" href="">Profile</a></li>
         <ul>
             <li><a href="/home/">Home</a></li>
             <li><a href="{% url 'Product-list' %}">Products</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="{% url 'product_create' %}">Add Product</a></li>
-            <li class="Profile"><a href="">Profile</a></li>
+            {% if not user.is_authenticated %}
+        <li style="float: right;">
+            <a href="{% url 'accounts:signup' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Sign up</a>
+        </li>
+        <li style="float: right;">
+            <a href="{% url 'accounts:login' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Login</a>
+        </li>
+        {% else %}
+        <!-- Pre prihláseného používateľa -->
+        <li style="float: right;">
+            <a href="{% url 'accounts:profile' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Profil</a>
+        </li>
+        <li style="float: right;">
+            <a href="{% url 'accounts:logout' %}" style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;">Log out</a>
+        </li>
+            {% endif %}
         </ul>
     </nav>
 

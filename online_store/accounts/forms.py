@@ -12,9 +12,9 @@ class SignUpForm(UserCreationForm):
                   'password1', 'password2']
 
         labels = {
-            'username': 'Uživatelské jméno',
-            'first_name': 'Jméno',
-            'last_name': 'Příjmení',
+            'username': 'Užívateľské meno',
+            'first_name': 'Meno',
+            'last_name': 'Priezvisko',
             'email': 'E-mail'
         }
 
@@ -26,6 +26,11 @@ class SignUpForm(UserCreationForm):
     password2 = CharField(
         widget=PasswordInput(attrs={'placeholder': 'Heslo znovu'}),
         label='Heslo znovu'
+    )
+
+    phone_number = CharField(
+        label='Telefón',
+        required=False
     )
 
     country = CharField(
@@ -52,7 +57,7 @@ class SignUpForm(UserCreationForm):
         required=False
     )
 
-    postal_code = CharField(
+    zip_code = CharField(
         widget=Textarea(attrs={'placeholder': 'PSČ','maxlength': '5'}),
         label='PSČ',
         required=False
@@ -64,18 +69,18 @@ class SignUpForm(UserCreationForm):
         user = super().save(commit)  # vytvoríme uživatela
 
         # ešte potrebujeme vytvoriť Profile
+        phone_number = self.cleaned_data.get('phone_number')
         country = self.cleaned_data.get('country')
         city = self.cleaned_data.get('city')
         street = self.cleaned_data.get('street')
-        postal_code = self.cleaned_data.get('postal_code')
-        avatar = self.cleaned_data.get('avatar')
+        zip_code = self.cleaned_data.get('zip_code')
         user_profile = Profile(
             user=user,
+            phone_number=phone_number,
             country=country,
             city=city,
             street=street,
-            postal_code=postal_code,
-            avatar=avatar
+            zip_code=zip_code,
         )
         if commit:
             user_profile.save()
