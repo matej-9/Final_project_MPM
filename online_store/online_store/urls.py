@@ -39,7 +39,7 @@ urlpatterns = [
 
     path("cart/",Cart.as_view(), name='cart'),
     path("cart/add_to_cart/", add_to_cart, name='add_to_cart'),
-    path('cart/update-kosik/', update_cart, name='update_cart')
+    path('cart/update_cart/', update_cart, name='update_cart'),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
 
 
