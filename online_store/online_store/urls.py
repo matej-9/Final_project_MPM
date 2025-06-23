@@ -23,6 +23,7 @@ from cart.models import CartItem
 from cart.views import Cart, add_to_cart, update_cart
 
 from . import views
+from .views import ContactView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -41,6 +42,7 @@ urlpatterns = [
     path("cart/add_to_cart/", add_to_cart, name='add_to_cart'),
     path('cart/update_cart/', update_cart, name='update_cart'),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('contact/', ContactView.as_view(), name='contact'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

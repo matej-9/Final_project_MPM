@@ -22,7 +22,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <li><a class="fancy-text" href="">Contact</a></li>
+            <li><a class="fancy-text" href="{% url 'contact' %}">Contact</a></li>
             {% if user.is_authenticated and user.is_superuser %}
                 <li><a class="fancy-text" href="{% url 'product_create' %}">Add Product</a></li>
                 <li><a class="fancy-text" href="{% url 'Product-list' %}">Remove Product</a></li>

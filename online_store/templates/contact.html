@@ -1,0 +1,32 @@
+{% extends 'homepage.html' %}
+{% load static %}
+
+<head>
+    <title>Get In Touch</title>
+</head>
+
+{% block title %}
+Contact
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" id="id_submit" value="Send" class="btn btn-back">
+</form>
+
+<div class="styled">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10420.084046975497!2d20.2120732004821!3d49.194830099529284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssk!2ssk!4v1750701807152!5m2!1ssk!2ssk"
+        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+{% endblock %}
