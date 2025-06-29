@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.contrib import messages
 
+from accounts.models import Profile
+from cart.form import ShippingAddressForm
 from cart.models import CartItem
 from product.models import Product
 
@@ -70,7 +73,6 @@ def pay(request):
     for item in user_cart_items:
         if item.product.quantity < item.quantity :
             messages.error(request, f"Nedostatok tovaru: {item.product.name}.")
-            item.delete()
             return redirect("cart")
 
     for item in user_cart_items:
@@ -80,4 +82,8 @@ def pay(request):
 
     user_cart_items.delete()
 
-    return redirect("cart")
+    return redirect("thanks")
+
+@login_required
+def thanks(request):
+    return render(request, 'thanks.html')

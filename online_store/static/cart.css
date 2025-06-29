@@ -4,6 +4,17 @@
   margin: 0;
   max-width: 600px;
   margin: auto;
+
+}
+
+div.message {
+  background-color: red;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  color: white;
+  font-size: 20px;
+  text-align-last: center ;
 }
 
 .cart .product {
@@ -34,21 +45,21 @@
 .cart .product h3 {
   margin: 0;
   font-size: 16px;
-  color: #333;
+
 }
 
 .cart .product p {
   margin: 5px 0;
   font-size: 14px;
-  color: #666;
 }
 
 .cart .product .price {
   font-weight: lighter;
-  color: #000;
+
 }
 .cart .finalprice {
   font-weight: bold;
   font-size: 20px;
   margin-left: auto;
 }
+

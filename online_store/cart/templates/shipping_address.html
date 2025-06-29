@@ -1,0 +1,17 @@
+
+{% extends 'homepage.html' %}
+{% load static %}
+{% block title %}
+Dodacia adresa
+{% endblock %}
+
+{% block content %}
+<h2>Dodacia adresa</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zaplatiť</button>
+</form>
+
+{% endblock %}
