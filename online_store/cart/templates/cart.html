@@ -14,6 +14,13 @@ Cart
 const CSRF_TOKEN = '{{ csrf_token }}';
 </script>
 <div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 <ul class="cart">
 {% for cart_item in cart %}
 	<li class="product" id="item-{{ cart_item.id }}">
@@ -40,7 +47,10 @@ const CSRF_TOKEN = '{{ csrf_token }}';
      <div class="finalprice">
     Celkom: <span id="total-sum">0</span> €
 </div>
-     <button type="submit">Zaplatiť</button>
+     <form method="POST" action="{% url 'pay' %}">
+         {% csrf_token %}
+         <button type="submit">Zaplatiť</button>
+     </form>
     </li>
 </ul>
 </div>
