@@ -7,6 +7,7 @@ Products
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products.css' %}">
+    <link rel="stylesheet" href="{% static 'cart.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -26,7 +27,7 @@ Products
             <form method="POST" action="{% url 'add_to_cart' %}">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
-                <button type="submit">Pridať do košíka</button>
+                <button type="submit" class="btnn">Pridať do košíka</button>
             </form>
             </li>
         </li>
