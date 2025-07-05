@@ -44,12 +44,12 @@ const CSRF_TOKEN = '{{ csrf_token }}';
 {% endfor %}
  <li>
 
-     <div class="finalprice">
-    Celkom: <span id="total-sum">0</span> €
+     <div  class="total_sum">
+    Celkom: <span id="total-sum" >0</span> €
 </div>
      <form method="POST" action="{% url 'pay' %}">
          {% csrf_token %}
-         <button type="submit">Zaplatiť</button>
+         <button type="submit" class="btnn">Zaplatiť</button>
      </form>
     </li>
 </ul>
