@@ -6,25 +6,14 @@ Dodacia adresa
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'contact.css' %}">
+<link rel="stylesheet" href="{% static 'cart.css' %}">
 {% endblock %}
 
 {% block content %}
-    <style>.btnn{
-    background-color: #fd8700;
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 1rem;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}</style>
-<h2 class="contact-form-container">Dodacia adresa</h2>
 
-<form method="POST" class="contact-form-container">
+<h2 class="form-container">Dodacia adresa</h2>
+
+<form method="POST" class="form-container">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btnn">Zaplatiť {{ total_price }} €</button>
