@@ -62,4 +62,23 @@ div.message {
   font-size: 20px;
   margin-left: auto;
 }
+.total_sum{
+  font-weight: bold;
+  font-size: 20px;
+  text-align-last: right;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
+.btnn{
+    background-color: #fd8700;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}

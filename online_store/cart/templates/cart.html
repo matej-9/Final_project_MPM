@@ -10,11 +10,20 @@ Cart
 {% endblock %}
 
 {% block content %}
-
+<script>
+const CSRF_TOKEN = '{{ csrf_token }}';
+</script>
 <div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 <ul class="cart">
 {% for cart_item in cart %}
-	<li class="product">
+	<li class="product" id="item-{{ cart_item.id }}">
     {% if cart_item.product.image %}
             <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" style="max-width:200px; height:auto;">
             {% else %}
@@ -27,43 +36,25 @@ Cart
             <button onclick="updateQuantity({{ cart_item.id }},'plus')">+</button>
             <span class="price">{{ cart_item.product.price }} € / ks</span>
         </div>
-     <div class="finalprice">
+    <div class="finalprice">
         <span id="total-{{ cart_item.id }}">{{ cart_item.get_total_price }} €</span>
     </div>
     </li>
-    <li>
-    <button type="submit">Zaplatiť</button>
-    </li>
+
 {% endfor %}
+ <li>
+
+     <div  class="total_sum">
+    Celkom: <span id="total-sum" >0</span> €
+</div>
+     <form method="POST" action="{% url 'pay' %}">
+         {% csrf_token %}
+         <button type="submit" class="btnn">Zaplatiť</button>
+     </form>
+    </li>
 </ul>
 </div>
-    <script>
-function updateQuantity(itemId, action) {
-    // AJAX request
-    const formData = new FormData();
-    formData.append('item_id', itemId);
-    formData.append('action', action);
-    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-    fetch('{% url "update_cart" %}', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.deleted) {
-            // hide item if deleted
-            document.getElementById('item-' + itemId).style.display = 'none';
-        } else {
-            // upadete quantity and price
-            document.getElementById('quantity-' + itemId).textContent = data.quantity;
-            document.getElementById('total-' + itemId).textContent = data.total + ' €';
-        }
-    })
-    .catch(error => {
-        alert('Chyba pri aktualizácii košíka!');
-        console.log(error);
-    });
-}
-    </script>
 {% endblock %}
+
+

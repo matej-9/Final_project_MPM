@@ -2,12 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404, render
-from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView
 from django.contrib import messages
-
-from accounts.models import Profile
 from cart.form import ShippingAddressForm
 from cart.models import CartItem
 from product.models import Product
