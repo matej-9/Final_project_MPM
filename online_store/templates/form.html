@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,18 +12,135 @@
             Formulár
         {% endif %}
     </title>
+    <link rel="stylesheet" href="{% static 'home_style.css' %}">
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        {% if view_name == 'MyLoginView' %}
+            height: 100vh;
+        {% else %}
+      /* pri registrácii nebude height 100vh ani flex, aby stránka mohla byť dlhšia */
+        {% endif %}
+      }
+
+      nav.nav-center {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .nav-btn {
+        background-color: #eca64a;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .nav-btn:hover {
+        background-color: #d18e34;
+      }
+
+      h1.main-heading {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      p.description {
+        margin: 0 0 20px 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      form.signup-form, form.login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 320px;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
+      form.signup-form label,
+      form.login-form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      form.signup-form input,
+      form.login-form input {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      form.signup-form button,
+      form.login-form button {
+        background-color: #eca64a;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+      form.signup-form button:hover,
+      form.login-form button:hover {
+        background-color: #d18e34;
+      }
+
+      .password-reset-link {
+        margin-top: 15px;
+      }
+      .password-reset-link a {
+        color: #eca64a;
+        text-decoration: none;
+      }
+      .password-reset-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
 </head>
 <body>
 
-<nav>
+<nav class="nav-center">
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}! <a href="{% url 'accounts:logout' %}">Logout</a></p>
+        <p class="welcome-msg">
+            Welcome, {{ user.username }}!
+            <a href="{% url 'accounts:logout' %}" class="nav-btn">Logout</a>
+        </p>
     {% else %}
-        <a href="{% url 'accounts:login' %}">Login</a> | <a href="{% url 'accounts:signup' %}">Sign Up</a>
+        {% if view_name == 'MyLoginView' %}
+            <button onclick="location.href='/'" type="button" class="nav-btn">Home</button>
+            <button onclick="location.href='{% url 'accounts:signup' %}'" type="button" class="nav-btn">Sign Up</button>
+        {% elif view_name == 'SignUpView' %}
+            <button onclick="location.href='/'" type="button" class="nav-btn">Home</button>
+            <button onclick="location.href='{% url 'accounts:login' %}'" type="button" class="nav-btn">Login</button>
+        {% else %}
+            <button onclick="location.href='{% url 'accounts:login' %}'" type="button" class="nav-btn">Login</button>
+            <button onclick="location.href='{% url 'accounts:signup' %}'" type="button" class="nav-btn">Sign Up</button>
+        {% endif %}
     {% endif %}
 </nav>
 
-<h1>
+<h1 class="main-heading">
     {% if view_name == 'SignUpView' %}
         Registration
     {% elif view_name == 'MyLoginView' %}
@@ -32,16 +150,24 @@
     {% endif %}
 </h1>
 
-<form method="post">
+{% if view_name == 'SignUpView' %}
+    <p class="description">Please fill in the form below to create an account.</p>
+{% elif view_name == 'MyLoginView' %}
+    <p class="description">Enter your username and password to log in.</p>
+{% endif %}
+
+<form method="post" class="{% if view_name == 'SignUpView' %}signup-form{% else %}login-form{% endif %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">
+    <button type="submit" class="nav-btn">
         {% if view_name == 'SignUpView' %} Sign up {% elif view_name == 'MyLoginView' %} Login {% else %} Send {% endif %}
     </button>
 </form>
 
 {% if view_name == 'MyLoginView' %}
-    <p><a href="{% url 'accounts:password_reset' %}">Forgot your password?</a></p>
+    <p class="password-reset-link">
+        <a href="{% url 'accounts:password_reset' %}">Forgot your password?</a>
+    </p>
 {% endif %}
 
 </body>
