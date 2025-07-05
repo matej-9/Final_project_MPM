@@ -3,12 +3,11 @@ from django import forms
 from django.forms import CharField, TextInput
 
 
-class ShippingAddressForm(forms.ModelForm):
+class ShippingAddressForm(forms.Form):
     first_name = CharField(
         label='Meno',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Meno'
         })
     )
@@ -17,7 +16,6 @@ class ShippingAddressForm(forms.ModelForm):
         label='Priezvisko',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Priezvisko'
         })
     )
@@ -26,7 +24,6 @@ class ShippingAddressForm(forms.ModelForm):
         label='Telefónne číslo',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Telefónne číslo'
         })
     )
@@ -35,7 +32,6 @@ class ShippingAddressForm(forms.ModelForm):
         label='Krajina',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Krajina'
         })
     )
@@ -44,7 +40,6 @@ class ShippingAddressForm(forms.ModelForm):
         label='Mesto',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Mesto'
         })
     )
@@ -53,7 +48,6 @@ class ShippingAddressForm(forms.ModelForm):
         label='Ulica a popisné číslo',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'Ulica a popisné číslo'
         })
     )
@@ -63,7 +57,6 @@ class ShippingAddressForm(forms.ModelForm):
         required=True,
         max_length=5,
         widget=TextInput(attrs={
-            'class': 'form-control',
             'placeholder': 'PSČ',
             'maxlength': '5'
         })

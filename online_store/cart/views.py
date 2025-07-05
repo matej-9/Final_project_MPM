@@ -71,18 +71,46 @@ def update_cart(request):
 def pay(request):
     user_cart_items = CartItem.objects.filter(user=request.user)
     for item in user_cart_items:
-        if item.product.quantity < item.quantity :
+        if item.product.quantity < item.quantity:
             messages.error(request, f"Nedostatok tovaru: {item.product.name}.")
             return redirect("cart")
 
-    for item in user_cart_items:
-        if item.product.quantity >= item.quantity :
-            item.product.quantity -= item.quantity
-            item.product.save()
+    return redirect("shipping_address")
 
-    user_cart_items.delete()
 
-    return redirect("thanks")
+@login_required
+def shipping_address(request):
+
+    user_cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.get_total_price() for item in user_cart_items)
+
+    if request.method == 'POST':
+        form = ShippingAddressForm(request.POST)
+
+        if form.is_valid():
+            #old pay functionality from def pay(request)
+            for item in user_cart_items:
+                if item.product.quantity >= item.quantity:
+                    item.product.quantity -= item.quantity
+                    item.product.save()
+
+            user_cart_items.delete()
+            return redirect('thanks')
+    else:
+        form = ShippingAddressForm()
+
+    if hasattr(request.user, 'profile'):
+        profile = request.user.profile
+        form.fields['first_name'].initial = request.user.first_name
+        form.fields['last_name'].initial = request.user.last_name
+        form.fields['phone_number'].initial = profile.phone_number
+        form.fields['country'].initial = profile.country
+        form.fields['city'].initial = profile.city
+        form.fields['street'].initial = profile.street
+        form.fields['zip_code'].initial = profile.zip_code
+
+    return render(request, "shipping_address.html", {"form": form, "total_price": total_price})
+
 
 @login_required
 def thanks(request):

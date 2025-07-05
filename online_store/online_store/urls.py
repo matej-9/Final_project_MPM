@@ -20,7 +20,7 @@ from django.urls import path, include
 
 from accounts.views import SignUpView, user_logout, MyLoginView
 from cart.models import CartItem
-from cart.views import Cart, add_to_cart, update_cart, pay, thanks
+from cart.views import Cart, add_to_cart, update_cart, pay, thanks, shipping_address
 
 from . import views
 from .views import ContactView
@@ -42,7 +42,7 @@ urlpatterns = [
     path("cart/add_to_cart/", add_to_cart, name='add_to_cart'),
     path('cart/update_cart/', update_cart, name='update_cart'),
     path('cart/pay', pay, name='pay'),
-
+    path('cart/shipping_address', shipping_address, name='shipping_address'),
     path('cart/thanks/', thanks, name='thanks'),
 
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
