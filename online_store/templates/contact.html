@@ -4,28 +4,37 @@
 {% block title %}Contact{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="{% static 'products.css' %}">
 <link rel="stylesheet" href="{% static 'contact.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="contact-form-container">
-    <h2>Get in Touch</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Send">
-    </form>
+<div class="contact-content">
+    <div class="contact-form-container">
+        <h2>Get in Touch</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+    <div class="contact-map">
+        <div class="contact-boxes">
+            <div class="box">
+                <span class="box-header">REACH US AT!</span><br>
+                <i class="fas fa-envelope"></i> E-mail: mpm@sdaproject.com<br>
+                <i class="fas fa-map-marker-alt"></i> Address: Lomnický štít<br>
+                <i class="fas fa-phone"></i> Phone: +421999888777        </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10420.084046975497!2d20.2120732004821!3d49.194830099529284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssk!2ssk!4v1750701807152!5m2!1ssk!2ssk"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
 </div>
 
 <div id="success-message" class="success-message" style="display: none;">
     Thank you! Your message has been sent successfully.
-</div>
-
-<div class="contact-map">
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10420.084046975497!2d20.2120732004821!3d49.194830099529284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssk!2ssk!4v1750701807152!5m2!1ssk!2ssk"
-        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
 </div>
 {% endblock %}
