@@ -53,6 +53,13 @@
     </nav>
 
     {% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h1>WELCOME TO OUR SHOP</h1>
+            <p>Find the best products with us.</p>
+            <a href="{% url 'Product-list' %}" class="hero-button">Shop Now</a>
+        </div>
+    </section>
     {% endblock %}
 {% block extra_js %}
 <script src="{% static 'cart.js' %}"></script>
