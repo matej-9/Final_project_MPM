@@ -2,36 +2,40 @@
 {% load static %}
 
 {% block title %}
-{{product.name}}
+{{ product.name }}
 {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'product_detail.css' %}">
+<link rel="stylesheet" href="{% static 'contact.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="styled">
-    {% if product.image %}
-    <li><img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:200px; height:auto;"></li>
-    {% else %}
-    <em>No image available</em>
-    {% endif %}
-</div>
+<div class="contact-content">
+    <div class="contact-form-container">
+        <h2>{{ product.name }}</h2>
+        <div class="product-detail">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width:200px; border-radius:8px;">
+            {% else %}
+            <em>No image available</em>
+            {% endif %}
 
-<div class="styled">
-    <li>Category: {{product.category}}</li>
-    <li>Description: {{product.desc}}</li>
-    <li>Quantity: {{product.quantity}}</li>
-    <li>Price (€): {{product.price}}</li>
-</div>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <p><strong>Description:</strong> {{ product.desc }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+            <p><strong>Price (€):</strong> {{ product.price }}</p>
+        </div>
 
-<div class="button-container">
-    {% if user.is_authenticated and user.is_superuser %}
-        <a href="{% url 'product_delete' product.id %}" class="btn-del" role="button">Delete</a>
-        <a href="{% url 'product_update' product.id %}" class="btn-back" role="button">Update</a>
-        <input type="button" value="Back" class="btn-back" onclick="history.back()">
-    {% else %}
-        <input type="button" value="Back" class="btn-back" onclick="history.back()">
-    {% endif %}
+        <div class="button-container">
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'product_delete' product.id %}" class="btn-del" role="button">Delete</a>
+            <a href="{% url 'product_update' product.id %}" class="btn-back" role="button">Update</a>
+            <input type="button" value="Back" class="btn-back" onclick="history.back()">
+            {% else %}
+            <input type="button" value="Back" class="btn-back" onclick="history.back()">
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
