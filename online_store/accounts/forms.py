@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.db.transaction import atomic
+from django.core.validators import RegexValidator
 from django.forms import CharField, PasswordInput, NumberInput, \
     Textarea
 
 from accounts.models import Profile
+
 
 
 class SignUpForm(UserCreationForm):
@@ -30,7 +32,13 @@ class SignUpForm(UserCreationForm):
 
     phone_number = CharField(
         label='Telefón',
-        required=False
+        required=False,
+        validators=[
+            RegexValidator(
+                regex=r'^\+\d{9,15}$',
+                message="Zadajte telefónne číslo v medzinárodnom formáte, napr. +421944258222"
+            )
+        ]
     )
 
     country = CharField(

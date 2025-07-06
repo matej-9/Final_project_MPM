@@ -3,18 +3,38 @@
 {% block title %}{{ profile.user.username }}{% endblock %}
 
 {% block content %}
+<style>
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    flex-direction: column;
+    text-align: center;
+  }
+  .profile-info {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: left; /* zarovnanie textu vnútri zoznamu */
+  }
+</style>
+
+<div class="center-container">
     {% if profile %}
         <h2>{{ profile.user.username }}</h2>
-        <ul>
-            <li>Meno: {{ profile.user.first_name }} {{ profile.user.last_name }}</li>
-            <li>E-mail: {{ profile.user.email }}</li>
-            <li>Telefón: {{ profile.phone_number }}</li>
-            <li>Krajina: {{ profile.country }}</li>
-            <li>Mesto: {{ profile.city }}</li>
-            <li>Ulica: {{ profile.street }}</li>
-            <li>PSČ: {{ profile.zip_code }}</li>
+        <ul class="profile-info">
+            <li><strong>Meno:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}</li>
+            <li><strong>E-mail:</strong> {{ profile.user.email }}</li>
+            <li><strong>Telefón:</strong> {{ profile.phone_number }}</li>
+            <li><strong>Krajina:</strong> {{ profile.country }}</li>
+            <li><strong>Mesto:</strong> {{ profile.city }}</li>
+            <li><strong>Ulica:</strong> {{ profile.street }}</li>
+            <li><strong>PSČ:</strong> {{ profile.zip_code }}</li>
         </ul>
     {% else %}
         <p>Profil nie je k dispozícii.</p>
     {% endif %}
+</div>
 {% endblock %}
